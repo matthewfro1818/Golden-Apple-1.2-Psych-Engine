@@ -17,6 +17,7 @@ import states.FreeplayState.SongMetadata;
 #if desktop
 import Discord.DiscordClient;
 #end
+import Controls.*;
 using StringTools;
 
 class ExtraSongState extends MusicBeatState
