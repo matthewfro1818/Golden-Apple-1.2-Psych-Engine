@@ -20,6 +20,7 @@ import openfl.Lib;
 #if desktop
 import Discord.DiscordClient;
 #end
+import Controls.*;
 
 using StringTools;
 
