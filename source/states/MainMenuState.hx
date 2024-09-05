@@ -305,7 +305,7 @@ class MainMenuState extends MusicBeatState
 									case 'options':
 										LoadingState.loadAndSwitchState(new options.OptionsState());
 								case 'extras':
-									FlxG.switchState(new ExtraSongState());
+									FlxG.switchState(new ExtrasMenuState());
 								case 'ost':
 									FlxG.switchState(new MusicPlayerState());
 								case 'credits':
