@@ -22,14 +22,18 @@ class MainMenuState extends MusicBeatState
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	var leftItem:FlxSprite;
 	var rightItem:FlxSprite;
-
-	//Centered/Text options
-	var optionShit:Array<String> = [
-		'story_mode',
-		'freeplay',
-		#if MODS_ALLOWED 'mods', #end
-		'credits'
+	public static var bgPaths:Array<String> = 
+	[
+		'backgrounds/biorange',
+		'backgrounds/cudroid',
+		'backgrounds/dreambean',
+		'backgrounds/roflcopter',
+		'backgrounds/vio',
+		'backgrounds/zevisly'
 	];
+	
+	//Centered/Text options
+	var optionShit:Array<String> = ['play', 'options', 'credits', 'discord', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'dave x bambi shipping cute'];
 
 	var leftOption:String = #if ACHIEVEMENTS_ALLOWED 'achievements' #else null #end;
 	var rightOption:String = 'options';
@@ -286,32 +290,42 @@ class MainMenuState extends MusicBeatState
 					{
 						switch (option)
 						{
-							case 'story_mode':
-								MusicBeatState.switchState(new StoryMenuState());
-							case 'freeplay':
-								MusicBeatState.switchState(new FreeplayState());
+									case 'story_mode':
+										MusicBeatState.switchState(new StoryMenuState());
+									case 'freeplay':
+										MusicBeatState.switchState(new FreeplayState());
+									#if MODS_ALLOWED
+									case 'mods':
+										MusicBeatState.switchState(new ModsMenuState());
+									#end
+									case 'awards':
+										MusicBeatState.switchState(new AchievementsMenuState());
+									case 'credits':
+										MusicBeatState.switchState(new CreditsState());
+									case 'options':
+										LoadingState.loadAndSwitchState(new options.OptionsState());
+								case 'extras':
+									FlxG.switchState(new ExtraSongState());
+								case 'ost':
+									FlxG.switchState(new MusicPlayerState());
+								case 'credits':
+									FlxG.switchState(new CreditsMenuState());
+								case 'play':
+									FlxG.switchState(new PlayMenuState());
+								case 'dave x bambi shipping cute':
+									var poop:String = Highscore.formatSong('dave-x-bambi-shipping-cute', 1);
 
-							#if MODS_ALLOWED
-							case 'mods':
-								MusicBeatState.switchState(new ModsMenuState());
-							#end
+									trace(poop);
 
-							#if ACHIEVEMENTS_ALLOWED
-							case 'achievements':
-								MusicBeatState.switchState(new AchievementsMenuState());
-							#end
-
-							case 'credits':
-								MusicBeatState.switchState(new CreditsState());
-							case 'options':
-								MusicBeatState.switchState(new OptionsState());
-								OptionsState.onPlayState = false;
-								if (PlayState.SONG != null)
-								{
-									PlayState.SONG.arrowSkin = null;
-									PlayState.SONG.splashSkin = null;
-									PlayState.stageUI = 'normal';
-								}
+									FlxG.save.data.shipUnlocked = true;
+						
+									PlayState.SONG = Song.loadFromJson(poop, 'dave-x-bambi-shipping-cute');
+									PlayState.isStoryMode = false;
+									PlayState.storyDifficulty = 1;
+									PlayState.xtraSong = false;
+						
+									PlayState.storyWeek = 1;
+									LoadingState.loadAndSwitchState(new PlayState());
 						}
 					});
 					
