@@ -18,6 +18,7 @@ import lime.app.Application;
 #if desktop
 import Discord.DiscordClient;
 #end
+import Controls.*;
 
 using StringTools;
 
